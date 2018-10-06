@@ -67,8 +67,8 @@ class BallSystem:
 
 		w = 2/(1+mu)*uPar*n
 
-		[b1.vx, b1.vy] = np.rint(v + b2.vel()).astype(int)
-		[b2.vx, b2.vy] = np.rint(w + b2.vel()).astype(int)
+		[b1.vx, b1.vy] = v + b2.vel()
+		[b2.vx, b2.vy] = w + b2.vel()
 
 		print(self.totalKineticEnergy())
 
@@ -78,11 +78,13 @@ class BallSystem:
 
 		# wall collision
 		for b in self.balls:
+			# left or right wall
 			if b.x - b.r < 0:
 				b.vx = abs(b.vx)
 			elif self.width < b.x + b.r:
 				b.vx = -abs(b.vx)
 
+			# top or bottom wall
 			if b.y - b.r < 0:
 				b.vy = abs(b.vy)
 			elif self.height < b.y + b.r:

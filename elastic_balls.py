@@ -22,7 +22,8 @@ while True:
 
 	screen.fill(white)
 	for b in bs.balls:
-		pg.draw.circle(screen, black, (b.x, b.y), b.r)
+		[bx, by] = np.rint(b.pos()).astype(int) 
+		pg.draw.circle(screen, black, (bx, by), b.r)
 	pg.display.flip()
 
-	#pg.time.wait(100)
+	#pg.time.wait(10)
