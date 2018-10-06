@@ -20,21 +20,25 @@ class Ball:
 		self.x += self.vx
 		self.y += self.vy
 
-def collide(b1, b2):
-	n = b2.pos() - b1.pos()
-	n = n/la.norm(n)
+class BallSystem:
+	def __init__(self, balls):
+		self.balls = balls
 
-	m = np.array([n[1], -n[0]])
+	def collide(self, b1, b2):
+		n = b2.pos() - b1.pos()
+		n = n/la.norm(n)
 
-	mu = b2.m/b1.m
+		m = np.array([n[1], -n[0]])
 
-	u = b1.vel()-b2.vel()
-	uPer = np.dot(u,n)
-	uPar = np.dot(u,m)
+		mu = b2.m/b1.m
 
-	v = uPer*m + (1-mu)/(1+mu)*uPar*n
+		u = b1.vel()-b2.vel()
+		uPer = np.dot(u,n)
+		uPar = np.dot(u,m)
 
-	w = 2/(1+mu)*uPar*n
+		v = uPer*m + (1-mu)/(1+mu)*uPar*n
 
-	[b1.vx, b1.vy] = np.rint(v + b2.vel()).astype(int)
-	[b2.vx, b2.vy] = np.rint(w + b2.vel()).astype(int)
+		w = 2/(1+mu)*uPar*n
+
+		[b1.vx, b1.vy] = np.rint(v + b2.vel()).astype(int)
+		[b2.vx, b2.vy] = np.rint(w + b2.vel()).astype(int)
