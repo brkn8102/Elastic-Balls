@@ -21,7 +21,7 @@ class Ball:
 		self.x += self.vx
 		self.y += self.vy
 
-	def kineticEnergy():
+	def kineticEnergy(self):
 		return 1/2*self.m*(self.vx**2 + self.vy**2)
 
 class BallSystem:
@@ -72,6 +72,8 @@ class BallSystem:
 		[b1.vx, b1.vy] = np.rint(v + b2.vel()).astype(int)
 		[b2.vx, b2.vy] = np.rint(w + b2.vel()).astype(int)
 
+		print(self.totalKineticEnergy())
+
 	def step(self):
 		for b in self.balls:
 			b.move()
@@ -101,3 +103,9 @@ class BallSystem:
 					self.collideBalls(b1, b2)
 			else:
 				self.areColliding[i] = False
+
+	def totalKineticEnergy(self):
+		tke = 0
+		for b in self.balls:
+			tke += b.kineticEnergy()
+		return tke
