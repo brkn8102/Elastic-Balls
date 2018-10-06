@@ -21,6 +21,9 @@ class Ball:
 		self.x += self.vx
 		self.y += self.vy
 
+	def kineticEnergy():
+		return 1/2*self.m*(self.vx**2 + self.vy**2)
+
 class BallSystem:
 	def __init__(self, width, height, balls = []):
 		self.balls = balls
