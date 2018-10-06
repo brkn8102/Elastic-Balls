@@ -13,3 +13,5 @@ class Ball:
 	def move(self):
 		self.x += self.vx
 		self.y += self.vy
+
+isBouncing(b1, b2)
