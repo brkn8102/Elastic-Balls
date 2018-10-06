@@ -22,12 +22,17 @@ class Ball:
 		self.y += self.vy
 
 class BallSystem:
-	def __init__(self, width, height, balls):
+	def __init__(self, width, height, balls = []):
 		self.balls = balls
 		self.ballPairs = list(combinations(self.balls, 2))
 		self.areColliding = [ False for i in range(len(self.ballPairs)) ]
 		self.width = width
 		self.height = height
+
+	def addBall(self, b):
+		self.balls.append(b)
+		self.ballPairs = list(combinations(self.balls, 2))
+		self.areColliding = [ False for i in range(len(self.ballPairs)) ]		
 
 	def moveAll(self):
 		for b in self.balls:
