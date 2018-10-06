@@ -1,4 +1,4 @@
-import numpy as np
+import numpy as np, random
 from numpy import linalg as la
 from itertools import combinations
 
@@ -32,7 +32,17 @@ class BallSystem:
 	def addBall(self, b):
 		self.balls.append(b)
 		self.ballPairs = list(combinations(self.balls, 2))
-		self.areColliding = [ False for i in range(len(self.ballPairs)) ]		
+		self.areColliding = [ False for i in range(len(self.ballPairs)) ]
+
+	def addRandomBalls(self, n):
+		for i in range(n):
+			m = random.random()
+			r = random.randint(10,100)
+			x = random.randint(0, self.width)
+			y = random.randint(0, self.height)
+			vx = random.randint(-10, 10)
+			vy = random.randint(-10,10)
+			self.addBall( Ball(m, r, x, y, vx, vy) )
 
 	def moveAll(self):
 		for b in self.balls:

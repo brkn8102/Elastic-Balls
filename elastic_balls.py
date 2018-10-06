@@ -7,12 +7,8 @@ width, height = 1280, 750
 black = 0, 0, 0
 white = 255, 255, 255
 
-ball1 = ball.Ball(1, 20, width//2, height//2, 10, 10)
-ball2 = ball.Ball(2, 40, 3*width//4, height//2, -10, -10)
-ball3 = ball.Ball(3, 60, 3*width//4, height//4, -10, 10)
-
-bs = ball.BallSystem(width, height, [ball1, ball2])
-bs.addBall(ball3)
+bs = ball.BallSystem(width, height)
+bs.addRandomBalls(5)
 
 screen = pg.display.set_mode([width, height])
 pg.display.set_caption("Elastic Balls")
