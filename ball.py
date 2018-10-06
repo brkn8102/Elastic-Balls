@@ -42,8 +42,8 @@ class BallSystem:
 		mu = b2.m/b1.m
 
 		u = b1.vel()-b2.vel()
-		uPer = np.dot(u,n)
-		uPar = np.dot(u,m)
+		uPar = np.dot(u,n)
+		uPer = np.dot(u,m)
 
 		v = uPer*m + (1-mu)/(1+mu)*uPar*n
 

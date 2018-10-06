@@ -7,9 +7,9 @@ width, height = 1280, 750
 black = 0, 0, 0
 white = 255, 255, 255
 
-ball1 = ball.Ball(1, 50, width//2, height//2, 10, 10)
-ball2 = ball.Ball(2, 100, 3*width//4, 3*height//4, -10, 10)
-ball3 = ball.Ball(3, 150, width//4, height//4, -10, 10)
+ball1 = ball.Ball(1, 20, width//2, height//2, 10, 0)
+ball2 = ball.Ball(2, 40, 3*width//4, height//2, -10, 0)
+ball3 = ball.Ball(2, 3, 3*width//4, height//4, -10, 0)
 
 bs = ball.BallSystem(width, height, [ball1, ball2, ball3])
 
