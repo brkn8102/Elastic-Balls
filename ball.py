@@ -26,6 +26,7 @@ class BallSystem:
 		self.balls = balls
 		self.ballPairs = list(combinations(self.balls, 2))
 		self.areColliding = [ False for i in range(len(self.ballPairs)) ]
+		self.isCollidingWithWall = [ False for i in range(len(self.balls)) ]
 		self.width = width
 		self.height = height
 
@@ -33,13 +34,14 @@ class BallSystem:
 		self.balls.append(b)
 		self.ballPairs = list(combinations(self.balls, 2))
 		self.areColliding = [ False for i in range(len(self.ballPairs)) ]
+		self.isCollidingWithWall = [ False for i in range(len(self.balls)) ]
 
 	def addRandomBalls(self, n):
 		for i in range(n):
 			m = random.random()
 			r = random.randint(10,100)
-			x = random.randint(0, self.width)
-			y = random.randint(0, self.height)
+			x = random.randint(r, self.width-r)
+			y = random.randint(r, self.height-r)
 			vx = random.randint(-10, 10)
 			vy = random.randint(-10,10)
 			self.addBall( Ball(m, r, x, y, vx, vy) )
@@ -72,11 +74,20 @@ class BallSystem:
 			b.move()
 
 		# wall collision
-		for b in self.balls:
+		for i in range(len(self.balls)):
+			b = self.balls[i]
 			if b.x - b.r < 0 or self.width < b.x + b.r:
-				b.vx = -b.vx
+				if not self.isCollidingWithWall[i]:
+					self.isCollidingWithWall[i] = True
+					b.vx = -b.vx
+			else:
+				self.isCollidingWithWall[i] = False
 			if b.y - b.r < 0 or self.height < b.y + b.r:
-				b.vy = -b.vy
+				if not self.isCollidingWithWall[i]:
+					self.isCollidingWithWall[i] = True
+					b.vy = -b.vy
+			else:
+				self.isCollidingWithWall[i] = False
 
 		# ball collision
 		for i in range(len(self.ballPairs)):
