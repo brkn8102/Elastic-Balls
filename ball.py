@@ -24,6 +24,8 @@ class Ball:
 class BallSystem:
 	def __init__(self, width, height, balls):
 		self.balls = balls
+		self.ballPairs = list(combinations(self.balls, 2))
+		self.areColliding = [ False for i in range(len(self.ballPairs)) ]
 		self.width = width
 		self.height = height
 
@@ -31,7 +33,7 @@ class BallSystem:
 		for b in self.balls:
 			b.move()
 
-	def collide(self, b1, b2):
+	def collideBalls(self, b1, b2):
 		n = b2.pos() - b1.pos()
 		n = n/la.norm(n)
 
@@ -62,6 +64,11 @@ class BallSystem:
 				b.vy = -b.vy
 
 		# ball collision
-		for (b1, b2) in list(combinations(self.balls, 2)):
+		for i in range(len(self.ballPairs)):
+			(b1, b2) = self.ballPairs[i]
 			if la.norm(b2.pos() - b1.pos()) < b1.r + b2.r:
-				self.collide(b1,b2)
+				if not self.areColliding[i]:
+					self.areColliding[i] = True
+					self.collideBalls(b1, b2)
+			else:
+				self.areColliding[i] = False
