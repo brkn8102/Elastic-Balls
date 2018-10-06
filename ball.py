@@ -1,5 +1,6 @@
 import numpy as np
 from numpy import linalg as la
+from itertools import combinations
 
 class Ball:
 	def __init__(self, m, r, x, y, vx, vy):
@@ -21,8 +22,14 @@ class Ball:
 		self.y += self.vy
 
 class BallSystem:
-	def __init__(self, balls):
+	def __init__(self, width, height, balls):
 		self.balls = balls
+		self.width = width
+		self.height = height
+
+	def moveAll(self):
+		for b in self.balls:
+			b.move()
 
 	def collide(self, b1, b2):
 		n = b2.pos() - b1.pos()
@@ -42,3 +49,19 @@ class BallSystem:
 
 		[b1.vx, b1.vy] = np.rint(v + b2.vel()).astype(int)
 		[b2.vx, b2.vy] = np.rint(w + b2.vel()).astype(int)
+
+	def step(self):
+		for b in self.balls:
+			b.move()
+
+		# wall collision
+		for b in self.balls:
+			if b.x - b.r < 0 or self.width < b.x + b.r:
+				b.vx = -b.vx
+			if b.y - b.r < 0 or self.height < b.y + b.r:
+				b.vy = -b.vy
+
+		# ball collision
+		for (b1, b2) in list(combinations(self.balls, 2)):
+			if la.norm(b2.pos() - b1.pos()) < b1.r + b2.r:
+				self.collide(b1,b2)
