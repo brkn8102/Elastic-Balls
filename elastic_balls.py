@@ -8,7 +8,7 @@ black = 0, 0, 0
 white = 255, 255, 255
 
 bs = ball.BallSystem(width, height)
-bs.addRandomBalls(5)
+bs.addRandomBalls(10)
 
 screen = pg.display.set_mode([width, height])
 pg.display.set_caption("Elastic Balls")
