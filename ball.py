@@ -41,8 +41,8 @@ class BallSystem:
 
 	def addRandomBalls(self, n):
 		for i in range(n):
-			m = random.random()
-			r = random.randint(10,100)
+			m = 0.1+random.random()
+			r = int( np.rint(100*m) )
 			x = random.randint(r, self.width-r)
 			y = random.randint(r, self.height-r)
 			vx = random.randint(-10, 10)
