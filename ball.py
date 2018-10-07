@@ -2,10 +2,13 @@ import numpy as np, random
 from numpy import linalg as la
 from itertools import combinations
 
+colors = [(232,232,232), (240,213,25), (210,59,25), (19,53,205), (0,0,0)]
+
 class Ball:
-	def __init__(self, m, r, x, y, vx, vy):
+	def __init__(self, m, r, c, x, y, vx, vy):
 		self.m = m
 		self.r = r
+		self.c = c
 		self.x = x
 		self.y = y
 		self.vx = vx
@@ -41,11 +44,12 @@ class BallSystem:
 		for i in range(n):
 			m = 0.3+random.random()
 			r = int( np.rint(30*m) )
+			c = random.choice(colors)
 			x = random.randint(r, self.width-r)
 			y = random.randint(r, self.height-r)
 			vx = random.randint(-10, 10)
 			vy = random.randint(-10, 10)
-			self.addBall( Ball(m, r, x, y, vx, vy) )
+			self.addBall( Ball(m, r, c, x, y, vx, vy) )
 
 	def collideBalls(self, b1, b2):
 		n = b2.pos() - b1.pos()

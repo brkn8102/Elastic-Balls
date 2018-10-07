@@ -4,8 +4,8 @@ from numpy import linalg as la
 pg.init()
 
 width, height = 1280, 750
-black = 0, 0, 0
-white = 255, 255, 255
+black = (0, 0, 0)
+white = (255, 255, 255)
 
 bs = ball.BallSystem(width, height)
 bs.addRandomBalls(10)
@@ -23,7 +23,7 @@ while True:
 	screen.fill(white)
 	for b in bs.balls:
 		[bx, by] = np.rint(b.pos()).astype(int) 
-		pg.draw.circle(screen, black, (bx, by), b.r)
+		pg.draw.circle(screen, b.c, (bx, by), b.r)
 	pg.display.flip()
 
 	#pg.time.wait(10)
