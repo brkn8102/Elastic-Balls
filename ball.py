@@ -39,17 +39,13 @@ class BallSystem:
 
 	def addRandomBalls(self, n):
 		for i in range(n):
-			m = 0.1+random.random()
-			r = int( np.rint(100*m) )
+			m = 0.3+random.random()
+			r = int( np.rint(30*m) )
 			x = random.randint(r, self.width-r)
 			y = random.randint(r, self.height-r)
-			vx = random.randint(-20, 20)
-			vy = random.randint(-20, 20)
+			vx = random.randint(-10, 10)
+			vy = random.randint(-10, 10)
 			self.addBall( Ball(m, r, x, y, vx, vy) )
-
-	def moveAll(self):
-		for b in self.balls:
-			b.move()
 
 	def collideBalls(self, b1, b2):
 		n = b2.pos() - b1.pos()
@@ -69,8 +65,6 @@ class BallSystem:
 
 		[b1.vx, b1.vy] = v + b2.vel()
 		[b2.vx, b2.vy] = w + b2.vel()
-
-		print(self.totalKineticEnergy())
 
 	def step(self):
 		for b in self.balls:
