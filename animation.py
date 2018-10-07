@@ -1,4 +1,4 @@
-import sys, pygame as pg, numpy as np, ball
+import sys, pygame as pg, numpy as np, elastic_balls
 from numpy import linalg as la
 
 pg.init()
@@ -7,7 +7,7 @@ width, height = 1280, 750
 black = (0, 0, 0)
 white = (255, 255, 255)
 
-bs = ball.BallSystem(width, height)
+bs = elastic_balls.BallSystem(width, height)
 bs.addRandomBalls(10)
 
 screen = pg.display.set_mode([width, height])
