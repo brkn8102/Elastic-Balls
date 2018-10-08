@@ -45,10 +45,14 @@ class BallSystem:
 			m = 0.3+random.random()
 			r = int( np.rint(30*m) )
 			c = random.choice(colors)
+
 			x = random.randint(r, self.width-r)
 			y = random.randint(r, self.height-r)
-			vx = random.randint(-10, 10)
-			vy = random.randint(-10, 10)
+
+			v = 10*random.random()
+			theta = 2*np.pi*random.random()
+			vx = v*np.cos(theta)
+			vy = v*np.cos(theta)
 			self.addBall(m, r, c, x, y, vx, vy)
 
 	def collideBalls(self, b1, b2):
