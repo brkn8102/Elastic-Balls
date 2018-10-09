@@ -31,7 +31,7 @@ class BallSystem:
 	def __init__(self, width, height, balls = []):
 		self.balls = balls
 		self.ballPairs = list(combinations(self.balls, 2))
-		self.areColliding = [ False for i in range(len(self.ballPairs)) ]
+		self.areColliding = [False for i in range(len(self.ballPairs))]
 		self.width = width
 		self.height = height
 		self.step = 0
@@ -39,12 +39,12 @@ class BallSystem:
 	def addBall(self, m, r, c, x, y, vx, vy):
 		self.balls.append(Ball(m, r, c, x, y, vx, vy))
 		self.ballPairs = list(combinations(self.balls, 2))
-		self.areColliding = [ False for i in range(len(self.ballPairs)) ]
+		self.areColliding = [False for i in range(len(self.ballPairs))]
 
 	def addRandomBalls(self, n):
 		for i in range(n):
-			m = 0.3+random.random()
-			r = int( np.rint(30*m) )
+			m = 0.1+random.random()
+			r = int( np.rint(20*m) )
 
 			c = random.choice(colors)
 
@@ -107,5 +107,8 @@ class BallSystem:
 			else:
 				self.areColliding[i] = False
 
+	def kineticEnergies(self):
+		return np.array([b.kineticEnergy() for b in self.balls])
+				
 	def totalKineticEnergy(self):
-		return np.sum([b.kineticEnergy() for b in self.balls])
+		return np.sum(self.kineticEnergies())
