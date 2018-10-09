@@ -108,7 +108,4 @@ class BallSystem:
 				self.areColliding[i] = False
 
 	def totalKineticEnergy(self):
-		tke = 0
-		for b in self.balls:
-			tke += b.kineticEnergy()
-		return tke
+		return np.sum([b.kineticEnergy() for b in self.balls])
