@@ -1,4 +1,4 @@
-import sys, pygame as pg, numpy as np
+import sys, pygame as pg, numpy as np, random
 import matplotlib.pyplot as plt, elastic_balls
 
 pg.init()
@@ -11,16 +11,28 @@ pg.display.set_caption("Elastic Balls")
 black = (0, 0, 0)
 white = (255, 255, 255)
 
-NUM_BALLS = 100
+NUM_BALLS = 200
 bs = elastic_balls.BallSystem(width, height)
 bs.addRandomBalls(NUM_BALLS)
 for b in bs.balls:
+	b.m = 2
+	b.r = 10
 	b.c = white
+
+	speed = 20
+	theta = 2*np.pi*random.random()
+	b.vx = speed*np.cos(theta)
+	b.vy = speed*np.sin(theta)
+for i in range(NUM_BALLS//2):
+	bs.balls[i].vx *= 1.4
+	bs.balls[i].vy *= 1.4
 
 MAX_STEPS = 10
 k = np.zeros((MAX_STEPS, NUM_BALLS))
 
 while bs.step < MAX_STEPS:
+	print(bs.step)
+
 	for event in pg.event.get():
 		if event.type == pg.QUIT:
 			sys.exit()
@@ -35,10 +47,9 @@ while bs.step < MAX_STEPS:
 	pg.display.flip()
 
 	bs.nextStep()
-	print(bs.step)
 
 s = np.repeat(np.arange(MAX_STEPS), NUM_BALLS)
-plt.hist2d(k.flatten(), s, bins=(10,MAX_STEPS))
+plt.hist2d(k.flatten(), s, bins=(50,MAX_STEPS))
 plt.xlabel('Kinetic Energy')
 plt.ylabel('Step')
 plt.show()

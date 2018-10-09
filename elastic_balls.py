@@ -51,10 +51,10 @@ class BallSystem:
 			x = random.randint(r, self.width-r)
 			y = random.randint(r, self.height-r)
 
-			v = 10*random.random()
+			speed = 10*random.random()
 			theta = 2*np.pi*random.random()
-			vx = v*np.cos(theta)
-			vy = v*np.cos(theta)
+			vx = speed*np.cos(theta)
+			vy = speed*np.sin(theta)
 
 			self.addBall(m, r, c, x, y, vx, vy)
 
