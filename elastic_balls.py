@@ -34,6 +34,7 @@ class BallSystem:
 		self.areColliding = [ False for i in range(len(self.ballPairs)) ]
 		self.width = width
 		self.height = height
+		self.step = 0
 
 	def addBall(self, m, r, c, x, y, vx, vy):
 		self.balls.append(Ball(m, r, c, x, y, vx, vy))
@@ -44,6 +45,7 @@ class BallSystem:
 		for i in range(n):
 			m = 0.3+random.random()
 			r = int( np.rint(30*m) )
+
 			c = random.choice(colors)
 
 			x = random.randint(r, self.width-r)
@@ -53,6 +55,7 @@ class BallSystem:
 			theta = 2*np.pi*random.random()
 			vx = v*np.cos(theta)
 			vy = v*np.cos(theta)
+
 			self.addBall(m, r, c, x, y, vx, vy)
 
 	def collideBalls(self, b1, b2):
@@ -74,7 +77,9 @@ class BallSystem:
 		[b1.vx, b1.vy] = v + b2.vel()
 		[b2.vx, b2.vy] = w + b2.vel()
 
-	def step(self):
+	def nextStep(self):
+		self.step += 1
+
 		for b in self.balls:
 			b.move()
 

@@ -21,7 +21,7 @@ while True:
 		if event.type == pg.QUIT:
 			sys.exit()
 
-	bs.step()
+	bs.nextStep()
 
 	screen.fill(black)
 	for b in bs.balls:
