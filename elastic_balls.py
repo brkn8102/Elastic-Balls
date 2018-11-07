@@ -33,7 +33,7 @@ class Ball:
 		self.y += self.vy
 
 	def kineticEnergy(self):
-		return 1/2*self.m*(self.vx**2 + self.vy**2)
+		return 1/2 * self.m * (self.vx**2 + self.vy**2)
 
 class BallSystem:
 	def __init__(self, width, height, balls = []):
@@ -51,33 +51,33 @@ class BallSystem:
 
 	def addRandomBalls(self, n, maxSpeed=10, color=random.choice(colors), angle=2*np.pi*random.random()):
 		for i in range(n):
-			m = 0.1+random.random()
-			r = int( np.rint(20*m) )
+			m = 0.1 + random.random()
+			r = int(np.rint(20 * m))
 			c = color
 			x = random.randint(r, self.width-r)
 			y = random.randint(r, self.height-r)
 
-			speed = maxSpeed*random.random()
-			vx = speed*np.cos(angle)
-			vy = speed*np.sin(angle)
+			speed = maxSpeed * random.random()
+			vx = speed * np.cos(angle)
+			vy = speed * np.sin(angle)
 
 			self.addBall(m, r, c, x, y, vx, vy)
 
 	def collideBalls(self, b1, b2):
 		n = b2.pos() - b1.pos()
-		n = n/la.norm(n)
+		n = n / la.norm(n)
 
 		m = np.array([n[1], -n[0]])
 
-		mu = b2.m/b1.m
+		mu = b2.m / b1.m
 
-		u = b1.vel()-b2.vel()
+		u = b1.vel() - b2.vel()
 		uPar = np.dot(u,n)
 		uPer = np.dot(u,m)
 
-		v = uPer*m + (1-mu)/(1+mu)*uPar*n
+		v = uPer * m + (1 - mu) / (1 + mu) * uPar * n
 
-		w = 2/(1+mu)*uPar*n
+		w = 2 / (1 + mu) * uPar * n
 
 		[b1.vx, b1.vy] = v + b2.vel()
 		[b2.vx, b2.vy] = w + b2.vel()

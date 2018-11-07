@@ -53,12 +53,12 @@ while bs.step < MAX_STEPS:
 
 s = np.repeat(np.arange(MAX_STEPS), NUM_BALLS)
 
-plt.hist2d(k.flatten(), s, bins=(50,MAX_STEPS))
+plt.hist2d(k.flatten(), s, bins=(50, MAX_STEPS))
 plt.xlabel('Kinetic Energy')
 plt.ylabel('Step')
 plt.show()
 
-plt.hist2d(a.flatten(), s, bins=(10,MAX_STEPS))
+plt.hist2d(a.flatten(), s, bins=(10, MAX_STEPS))
 plt.xlabel('Angle')
 plt.ylabel('Step')
 plt.show()
