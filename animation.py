@@ -1,5 +1,11 @@
-import sys, pygame as pg, numpy as np, random
-import matplotlib.pyplot as plt, elastic_balls
+import sys
+import random
+
+import pygame as pg
+import numpy as np
+import matplotlib.pyplot as plt
+
+import elastic_balls
 
 pg.init()
 
