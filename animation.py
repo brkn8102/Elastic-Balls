@@ -7,12 +7,16 @@ import matplotlib.pyplot as plt
 
 import elastic_balls
 
-pg.init()
+animate = False
 
+#screen size is 1280, 750
 width, height = 1280, 750
 
-screen = pg.display.set_mode([width, height])
-pg.display.set_caption("Elastic Balls")
+if animate:
+	pg.init()
+
+	screen = pg.display.set_mode([width, height])
+	pg.display.set_caption("Elastic Balls")
 
 black = (0, 0, 0)
 white = (255, 255, 255)
@@ -28,19 +32,20 @@ a = np.zeros((MAX_STEPS, NUM_BALLS))
 while bs.step < MAX_STEPS:
 	print(bs.step)
 
-	for event in pg.event.get():
-		if event.type == pg.QUIT:
-			sys.exit()
-
 	for i in range(NUM_BALLS):
 		k[bs.step][i] = bs.balls[i].kineticEnergy()
 		a[bs.step][i] = bs.balls[i].velAngle()
 
-	screen.fill(black)
-	for b in bs.balls:
-		[bx, by] = np.rint(b.pos()).astype(int) 
-		pg.draw.circle(screen, b.c, (bx, by), b.r)
-	pg.display.flip()
+	if animate:
+		for event in pg.event.get():
+			if event.type == pg.QUIT:
+				sys.exit()
+
+		screen.fill(black)
+		for b in bs.balls:
+			[bx, by] = np.rint(b.pos()).astype(int) 
+			pg.draw.circle(screen, b.c, (bx, by), b.r)
+		pg.display.flip()
 
 	bs.nextStep()
 
