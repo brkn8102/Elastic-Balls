@@ -17,9 +17,9 @@ pg.display.set_caption("Elastic Balls")
 black = (0, 0, 0)
 white = (255, 255, 255)
 
-NUM_BALLS = 100
+NUM_BALLS = 50
 bs = elastic_balls.BallSystem(width, height)
-bs.addRandomBalls(NUM_BALLS, color=white, maxSpeed=20, angle=0)
+bs.addRandomBalls(NUM_BALLS, color=white, maxSpeed=40, angle=0)
 
 MAX_STEPS = 200
 k = np.zeros((MAX_STEPS, NUM_BALLS))
@@ -48,12 +48,17 @@ while bs.step < MAX_STEPS:
 
 s = np.repeat(np.arange(MAX_STEPS), NUM_BALLS)
 
-plt.hist2d(k.flatten(), s, bins=(50,MAX_STEPS))
-plt.xlabel('Kinetic Energy')
-plt.ylabel('Step')
-plt.show()
+# plt.hist2d(k.flatten(), s, bins=(50,MAX_STEPS))
+# plt.xlabel('Kinetic Energy')
+# plt.ylabel('Step')
+# plt.show()
 
-plt.hist2d(a.flatten(), s, bins=(10,MAX_STEPS))
-plt.xlabel('Angle')
-plt.ylabel('Step')
+# plt.hist2d(a.flatten(), s, bins=(10,MAX_STEPS))
+# plt.xlabel('Angle')
+# plt.ylabel('Step')
+# plt.show()
+
+densities, bin_edges = np.histogram(a[-1], range=(0, 2*np.pi), bins=10, density=True)
+ax = plt.subplot(111, projection='polar')
+ax.bar(bin_edges[:-1], densities)
 plt.show()
