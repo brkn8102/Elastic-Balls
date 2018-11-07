@@ -20,6 +20,13 @@ class Ball:
 	def vel(self):
 		return np.array([self.vx, self.vy])
 
+	def velAngle(self):
+		r = np.sqrt(self.vx**2 + self.vy**2)
+		a = np.arccos(self.vx / r)
+		if self.vy < 0:
+			a = 2*np.pi - a
+		return a
+
 	def move(self):
 		self.x += self.vx
 		self.y += self.vy
@@ -41,7 +48,7 @@ class BallSystem:
 		self.ballPairs = list(combinations(self.balls, 2))
 		self.areColliding = [False for i in range(len(self.ballPairs))]
 
-	def addRandomBalls(self, n, maxSpeed=20, color=random.choice(colors), angle=2*np.pi*random.random()):
+	def addRandomBalls(self, n, maxSpeed=10, color=random.choice(colors), angle=2*np.pi*random.random()):
 		for i in range(n):
 			m = 0.1+random.random()
 			r = int( np.rint(40*m) )

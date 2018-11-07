@@ -11,12 +11,13 @@ pg.display.set_caption("Elastic Balls")
 black = (0, 0, 0)
 white = (255, 255, 255)
 
-NUM_BALLS = 30
+NUM_BALLS = 100
 bs = elastic_balls.BallSystem(width, height)
-bs.addRandomBalls(NUM_BALLS, color=white, maxSpeed=10, angle=0)
+bs.addRandomBalls(NUM_BALLS, color=white, maxSpeed=20, angle=0)
 
-MAX_STEPS = 100
+MAX_STEPS = 200
 k = np.zeros((MAX_STEPS, NUM_BALLS))
+a = np.zeros((MAX_STEPS, NUM_BALLS))
 
 while bs.step < MAX_STEPS:
 	print(bs.step)
@@ -27,6 +28,7 @@ while bs.step < MAX_STEPS:
 
 	for i in range(NUM_BALLS):
 		k[bs.step][i] = bs.balls[i].kineticEnergy()
+		a[bs.step][i] = bs.balls[i].velAngle()
 
 	screen.fill(black)
 	for b in bs.balls:
@@ -36,10 +38,16 @@ while bs.step < MAX_STEPS:
 
 	bs.nextStep()
 
-np.savetxt('data', k)
+#np.savetxt('data', k)
 
 s = np.repeat(np.arange(MAX_STEPS), NUM_BALLS)
+
 plt.hist2d(k.flatten(), s, bins=(50,MAX_STEPS))
 plt.xlabel('Kinetic Energy')
+plt.ylabel('Step')
+plt.show()
+
+plt.hist2d(a.flatten(), s, bins=(10,MAX_STEPS))
+plt.xlabel('Angle')
 plt.ylabel('Step')
 plt.show()
