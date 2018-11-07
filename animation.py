@@ -11,23 +11,11 @@ pg.display.set_caption("Elastic Balls")
 black = (0, 0, 0)
 white = (255, 255, 255)
 
-NUM_BALLS = 200
+NUM_BALLS = 30
 bs = elastic_balls.BallSystem(width, height)
-bs.addRandomBalls(NUM_BALLS)
-for b in bs.balls:
-	b.m = 2
-	b.r = 10
-	b.c = white
+bs.addRandomBalls(NUM_BALLS, color=white, maxSpeed=10, angle=0)
 
-	speed = 20
-	theta = 2*np.pi*random.random()
-	b.vx = speed*np.cos(theta)
-	b.vy = speed*np.sin(theta)
-for i in range(NUM_BALLS//2):
-	bs.balls[i].vx *= 1.4
-	bs.balls[i].vy *= 1.4
-
-MAX_STEPS = 10
+MAX_STEPS = 100
 k = np.zeros((MAX_STEPS, NUM_BALLS))
 
 while bs.step < MAX_STEPS:
@@ -47,6 +35,8 @@ while bs.step < MAX_STEPS:
 	pg.display.flip()
 
 	bs.nextStep()
+
+np.savetxt('data', k)
 
 s = np.repeat(np.arange(MAX_STEPS), NUM_BALLS)
 plt.hist2d(k.flatten(), s, bins=(50,MAX_STEPS))

@@ -41,20 +41,17 @@ class BallSystem:
 		self.ballPairs = list(combinations(self.balls, 2))
 		self.areColliding = [False for i in range(len(self.ballPairs))]
 
-	def addRandomBalls(self, n):
+	def addRandomBalls(self, n, maxSpeed=20, color=random.choice(colors), angle=2*np.pi*random.random()):
 		for i in range(n):
 			m = 0.1+random.random()
-			r = int( np.rint(20*m) )
-
-			c = random.choice(colors)
-
+			r = int( np.rint(40*m) )
+			c = color
 			x = random.randint(r, self.width-r)
 			y = random.randint(r, self.height-r)
 
-			speed = 10*random.random()
-			theta = 2*np.pi*random.random()
-			vx = speed*np.cos(theta)
-			vy = speed*np.sin(theta)
+			speed = maxSpeed*random.random()
+			vx = speed*np.cos(angle)
+			vy = speed*np.sin(angle)
 
 			self.addBall(m, r, c, x, y, vx, vy)
 
