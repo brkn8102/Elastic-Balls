@@ -1,6 +1,7 @@
-import numpy as np, random
-from numpy import linalg as la
-from itertools import combinations
+import numpy as np
+import random
+import  numpy.linalg as la
+import itertools
 
 colors = [(232,232,232), (240,213,25), (210,59,25), (19,53,205), (0,0,0)]
 
@@ -37,7 +38,7 @@ class Ball:
 class BallSystem:
 	def __init__(self, width, height, balls = []):
 		self.balls = balls
-		self.ballPairs = list(combinations(self.balls, 2))
+		self.ballPairs = list(itertools.combinations(self.balls, 2))
 		self.areColliding = [False for i in range(len(self.ballPairs))]
 		self.width = width
 		self.height = height
@@ -45,13 +46,13 @@ class BallSystem:
 
 	def addBall(self, m, r, c, x, y, vx, vy):
 		self.balls.append(Ball(m, r, c, x, y, vx, vy))
-		self.ballPairs = list(combinations(self.balls, 2))
+		self.ballPairs = list(itertools.combinations(self.balls, 2))
 		self.areColliding = [False for i in range(len(self.ballPairs))]
 
 	def addRandomBalls(self, n, maxSpeed=10, color=random.choice(colors), angle=2*np.pi*random.random()):
 		for i in range(n):
 			m = 0.1+random.random()
-			r = int( np.rint(40*m) )
+			r = int( np.rint(20*m) )
 			c = color
 			x = random.randint(r, self.width-r)
 			y = random.randint(r, self.height-r)
